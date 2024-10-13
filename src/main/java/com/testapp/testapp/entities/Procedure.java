@@ -29,3 +29,4 @@ public class Procedure {
 //        this.durationTimeMinutes = durationTimeMinutes;
 //    }
 }
+
