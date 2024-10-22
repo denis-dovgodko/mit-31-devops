@@ -37,7 +37,7 @@ pipeline {
         stage('Image build'){
             agent any
             steps{
-                sh 'docker build -t denis-dovgodko/javaapp:latest .'
+                sh 'docker build -t denisdovgodko/javaapp:latest .'
             }
         }
         stage('Image push'){
@@ -45,7 +45,7 @@ pipeline {
             steps{
                 withCredentials([usernamePassword(credentialsId: 'dockerHubCreds', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
                     sh 'docker login -u ${dockerHubUser} -p ${dockerHubPassword}'
-                    sh 'docker push denis-dovgodko/javaapp:latest'
+                    sh 'docker push denisdovgodko/javaapp:latest'
                 }
             }
         }
