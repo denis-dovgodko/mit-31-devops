@@ -11,32 +11,26 @@ pipeline {
                 checkout scm
             }
         }
-        stage('Maven'){ 
+        stage('Maven build&test'){ 
             agent {
                 docker {
                     image 'maven:3.9.9-eclipse-temurin-17-alpine'
                     args  '-u=\"root\"'
                 }
             }
-            stage('Build'){
-                steps{
-                    sh 'mvn clean package -DskipTests'
-                }
+            steps{
+                sh 'mvn clean package -DskipTests'
+                sh 'mvn test'
             }
-            stage('Test'){
-                steps{
-                    sh 'mvn test'
+            post{
+                always {
+                    junit 'target/surefire-reports/TEST-*.xml'
                 }
-                post{
-                    always {
-                        junit 'target/surefire-reports/TEST-*.xml'
-                    }
-                    success {
-                        echo "Tests have passed"
-                    }
-                    failure {
-                        echo "Tests haven't passed"
-                    }
+                success {
+                    echo "Tests have passed"
+                }
+                failure {
+                    echo "Tests haven't passed"
                 }
             }
         }
