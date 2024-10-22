@@ -44,7 +44,7 @@ pipeline {
             agent any
             steps{
                 withCredentials([usernamePassword(credentialsId: 'dockerHubCreds', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
-                    sh 'docker login -u ${dockerHubUser} -p ${dockerHubPassword}'
+                    sh 'echo ${dockerHubPassword} | docker login -u ${dockerHubUser} --password-stdin'
                     sh 'docker push denisdovgodko/javaapp:latest'
                 }
             }
