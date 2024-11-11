@@ -30,13 +30,22 @@ public class TestApp {
                 )
         ));
         List<Schedule> scheduleList = setWeeklySchedule(doctorList);
-        System.out.println("Log in. Please, enter index of your user");
         Scanner in = new Scanner(System.in);
-        for (int i = 0; i < clients.size(); i++) {
-            System.out.println(i + ") " + clients.get(i).getFullName());
+        int currentUserIndex;
+        while (true) {
+            System.out.println("Log in. Please, enter index of your user");
+            for (int i = 0; i < clients.size(); i++) {
+                System.out.println(i + ") " + clients.get(i).getFullName());
+            }
+            System.out.println("Log in. Please, enter index of your user from list higher: ");
+            try {
+                currentUserIndex = Integer.parseInt(in.nextLine());
+                System.out.println("Success!");
+                break;
+            } catch (NumberFormatException e) {
+                System.out.println("Error: Please, retype user index again");
+            }
         }
-        System.out.println("Log in. Please, enter index of your user from list higher: ");
-        int currentUserIndex = Integer.parseInt(in.nextLine());
         do {
             System.out.println("0) Book visit to doctor");
             System.out.println("1) My visits");
